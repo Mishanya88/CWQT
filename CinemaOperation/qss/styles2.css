@@ -1,0 +1,69 @@
+QWidget {
+	background-color: #eecd8a;
+	color: #1c1404;
+	border: none;
+}
+QLabel {
+	color: #1c1404;
+	font-family: "Trebuchet MS";
+}
+QRadioButton {
+	color: #1c1404;
+	font-family: "Trebuchet MS";
+}
+QPushButton {
+	background-color: #848483;
+	border-radius: 4px;
+	color: #ffffff;
+        padding: 3px;
+        font-size: 13px;
+	border: 1px solid #094974;
+}
+QPushButton:hover {
+        background-color: #df9f1f
+}
+QLineEdit {
+	background-color: #ffffff;
+	border: 1px solid #4a662f;
+	color: #1c1404;
+        padding: 5px;
+}
+
+QPushButton:disabled {
+    background-color: #b8b8b8;
+    color: #777777;
+    border: 1px solid #cccccc;
+}
+QGroupBox {
+    border: 2px solid #094974;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+QGroupBox::title {
+    color: #2c444c;
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 5px;
+}
+QTimeEdit {
+    border: 1px solid #094974;
+    border-radius: 4px;
+    padding: 2px;
+}
+QDateEdit {
+border: 1px solid #094974;
+border-radius: 4px;
+padding: 2px;
+}
+QComboBox{
+border: 1px solid #094974;
+border-radius: 4px;
+padding: 2px;
+}
+QTableWidget{
+	background-color: #ffffff;
+	color: #1c1404;
+	font-size: 14px;
+	border: 2px solid #1c1404;
+}

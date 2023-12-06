@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/back.png</file>
+        <file>images/backGround.jpg</file>
+        <file>images/seat_booked.png</file>
+        <file>images/seat_selected.png</file>
+        <file>images/seat_vacant.png</file>
+        <file>qss/styles.css</file>
+        <file>qss/styles2.css</file>
+        <file>images/que.png</file>
+        <file>html/help.html</file>
+        <file>html/infoButton.html</file>
+        <file>html/themeButton.html</file>
+        <file>html/admin.html</file>
+        <file>html/user.html</file>
+        <file>html/admin.png</file>
+        <file>html/user.png</file>
+        <file>html/add.jpg</file>
+        <file>html/createuser.jpg</file>
+        <file>html/del.jpg</file>
+        <file>html/load.jpg</file>
+        <file>html/photo.jpg</file>
+        <file>html/back.png</file>
+        <file>html/tickets.jpg</file>
+    </qresource>
+</RCC>
