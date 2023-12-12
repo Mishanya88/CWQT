@@ -148,7 +148,7 @@ void BaseCompil::insertUser(QString name, QString password)
     movieQuery.prepare("INSERT INTO user (username, password, accessLevel) VALUES (:username, :password, :accessLevel)");
     movieQuery.bindValue(":username", name);
     movieQuery.bindValue(":password", password);
-    movieQuery.bindValue(":accessLevel", 0);
+    movieQuery.bindValue(":accessLevel", 1);
     if(!movieQuery.exec()) {
         qDebug() << __FILE__ << __LINE__ << "insert error: " << movieQuery.lastError();
     }

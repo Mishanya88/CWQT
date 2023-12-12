@@ -48,20 +48,16 @@ public:
 
 
     bool getTicketsInfo();
-
+    void sceneclr();
     void drawTicket();
 
     int id = 0;
-
-private slots:
-
+public slots:
     void on_pbLeft_clicked();
-
     void on_pbRight_clicked();
-
-    void on_pbExit_clicked();
-
     void on_pbSaveAll_clicked();
+protected slots:
+    void on_pbExit_clicked();
 
 private:
     bool full = false;

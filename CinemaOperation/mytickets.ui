@@ -34,7 +34,7 @@
    </property>
    <layout class="QGridLayout" name="gridLayout"/>
   </widget>
-  <widget class="QPushButton" name="pbLeft">
+  <widget class="QPushButton" name="Left">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -47,7 +47,7 @@
     <string>&lt;</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbRight">
+  <widget class="QPushButton" name="Right">
    <property name="geometry">
     <rect>
      <x>710</x>
@@ -58,6 +58,19 @@
    </property>
    <property name="text">
     <string>&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbSaveAll">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>400</y>
+     <width>231</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Сохранить все билеты</string>
    </property>
   </widget>
  </widget>

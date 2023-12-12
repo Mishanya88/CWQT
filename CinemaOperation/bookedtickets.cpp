@@ -52,7 +52,6 @@ void bookedtickets::drawTicket(){ // Отрисовываем конкретны
     if(tickets.isEmpty()){
         getTicketsInfo();
     }
-
     QBrush brush;
     QPen pen;
 
@@ -75,9 +74,8 @@ bool bookedtickets::getTicketsInfo(){   // SQL запрос и запись да
     for(int i = 0; i < bookedIDs.size(); i++){
         QSqlQuery q;
         {
-            if(full == false)
+            if(!full)
             {
-                qDebug()<<"mo";
                 q.prepare("SELECT PriceTime.price,MOVIES.name, length, u_time, roomid, "
                           "ROW, COL FROM MOVIES, BOOKED,PriceTime "
                           "WHERE MOVIES.name = '" + bookedName +
@@ -119,13 +117,20 @@ bool bookedtickets::getTicketsInfo(){   // SQL запрос и запись да
             f.setFamily("Oswald");
 
             tickets[i]->setY(0);
-            tickets[i]->addToGroup(scene->addText("Билет \t\t\t№" + QString::number(bookedIDs[i]), f));
+            tickets[i]->addToGroup(scene->addText("Билет \t\t\t№" + QString::number(i + 1), f));
 
             tickets[i]->setY(20);
             QDateTime dt;
             dt = q.value(rec.indexOf("u_time")).toDateTime();
-            tickets[i]->addToGroup(scene->addText(dt.date().toString() + "\t" +
-                                                  "\tв " + time + "\n", f));
+            if(!full)
+                tickets[i]->addToGroup(scene->addText(dt.date().toString() + "\t" +
+                                                    "\tв " + time + "\n", f));
+            else {
+                QString tm = q.value(rec.indexOf("time")).toString();
+                tickets[i]->addToGroup(scene->addText(dt.date().toString() + "\t" +
+                                                    "\tв " + tm + "\n", f));
+
+            }
 
             tickets[i]->setY(40);
             data = q.value(rec.indexOf("price")).toString();
@@ -161,6 +166,26 @@ bool bookedtickets::getTicketsInfo(){   // SQL запрос и запись да
 
     qDebug() << "getTickets success";
     return 1;
+}
+
+void bookedtickets::sceneclr()
+{
+    if(!tickets.isEmpty()){
+        for(auto& o : tickets)
+            delete o;
+        tickets.clear();
+        tickets.shrink_to_fit();
+    }
+    tickets.push_back(new QGraphicsItemGroup());
+    QString data;
+    QFont f;
+    f.setPixelSize(100);
+    f.setFamily("Oswald");
+
+    tickets[0]->setY(700);
+    tickets[0]->addToGroup(scene->addText("Билетов нет",f));
+    id = 0;
+    bookedIDs.erase(bookedIDs.begin() + 1, bookedIDs.end());
 }
 
 
@@ -199,17 +224,16 @@ void bookedtickets::on_pbSaveAll_clicked()
 {
 
     QString url = QFileDialog::getExistingDirectory(0, "Сохранить",
-                                               "/ c:", QFileDialog :: ShowDirsOnly | QFileDialog :: DontResolveSymlinks);
+                                                   "/ c:", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
-    if(url == ""){
-        QMessageBox::warning(this, "Ошибка","Введите путь к файлу");
+    if(url.isEmpty()){
+        QMessageBox::warning(this, "Ошибка", "Введите путь к файлу");
         return;
     }
 
     for(int i = 0; i < bookedIDs.size(); i++){
-
+        // Удаление предыдущего элемента
         scene->removeItem(tickets[id]);
-        scene->clear();
 
         id = i;
         drawTicket();
@@ -218,7 +242,12 @@ void bookedtickets::on_pbSaveAll_clicked()
 
         QPainter painter(&image);
         scene->render(&painter);
-        QImageWriter writer(url + "_" + QString::number(bookedIDs[i]) + ".jpg");
+
+        QDir dir(url);
+        QString fileName = QString::number(bookedIDs[i]) + ".jpg";
+        QString filePath = dir.filePath(fileName);
+
+        QImageWriter writer(filePath);
 
         if(!writer.write(image))
         {
@@ -226,6 +255,7 @@ void bookedtickets::on_pbSaveAll_clicked()
             QMessageBox::warning(this, "Ошибка", "Не удалось сохранить изображение " + er);
         }
     }
+
 }
 
 bookedtickets::~bookedtickets()

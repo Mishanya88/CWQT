@@ -61,7 +61,24 @@ void MainWindow::on_create_clicked()
 {
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
+    QSqlQuery checkQuery;
+    checkQuery.prepare("SELECT COUNT(*) FROM user WHERE username = :login");
+    checkQuery.bindValue(":login", username);
 
+    if (!checkQuery.exec()) {
+        qDebug() << "Ошибка выполнения запроса:" << checkQuery.lastError().text();
+        return;
+    }
+
+    checkQuery.next();
+    int count = checkQuery.value(0).toInt();
+
+    if (count > 0) {
+        QErrorMessage errorMessage;
+        errorMessage.showMessage("Такой пользователь уже есть.");
+        errorMessage.exec();
+        return;
+    }
     if (!username.isEmpty() && !password.isEmpty()) {
         m_db->insertUser(username, password);
     } else {
